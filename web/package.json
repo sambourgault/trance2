@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "osc": "2.4.1"
-  }
+  },
   "description": "osc app",
   "main": "index.js",
   "scripts": {
