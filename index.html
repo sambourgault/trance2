@@ -76,7 +76,9 @@ Received from an OSC app/device at : <div id="status"></div>
       osc.open(); // connect by default to ws://localhost:8080
     
       document.getElementById('send').addEventListener('click', () => {
-        var message = new OSC.Message('/test/random', Math.random());
+        var a = Math.random()
+        var message = new OSC.Message('/test/random', a);
+        console.log(a)
         osc.send(message, { host: '192.168.0.18', port: 9129 });
       });
     </script>
