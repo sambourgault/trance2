@@ -29,7 +29,7 @@ Received from an OSC app/device at : <div id="status"></div>
 
 <hr />
 
-<script src="http://127.0.0.1:8081/socket.io/socket.io.js"></script>
+<!-- <script src="http://127.0.0.1:8081/socket.io/socket.io.js"></script>
 
 <script>
    var socket = io('http://127.0.0.1:8081');
@@ -57,9 +57,11 @@ Received from an OSC app/device at : <div id="status"></div>
     });
 
     
-</script>
+</script> -->
 
-<button onclick="socket.emit('message', '/foo/bar 1 2 3');">Send /foo/bar/ 1 2 3</button>
+
+
+<!-- <button onclick="socket.emit('message', '/foo/bar 1 2 3');">Send /foo/bar/ 1 2 3</button> -->
 
 <h1>Trance</h1>
     <button id="accelPermsButton"  style="height:50px;" onclick="getPerm()"><h2>Get Accelerometer Permissions</h2></button>
@@ -67,6 +69,16 @@ Received from an OSC app/device at : <div id="status"></div>
     <div id="container">
     </div>
 
-
+    <button id="send">Send Message</button>
+    <script type="text/javascript" src="lib/osc.min.js"></script>
+    <script type="text/javascript">
+      var osc = new OSC();
+      osc.open(); // connect by default to ws://localhost:8080
+    
+      document.getElementById('send').addEventListener('click', () => {
+        var message = new OSC.Message('/test/random', Math.random());
+        osc.send(message);
+      });
+    </script>
 
 </body> </html>
