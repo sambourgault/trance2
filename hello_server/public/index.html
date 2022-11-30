@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title></title>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+
+<body>
+
+<p>Connect your OSC app/device at port 3333 to send messages to this
+page.<br /><br />Configure your OSC app/device to listen at port 3334
+to messages I send from this page.</p>
+
+<pre>
+        OSC app ----> bridge.js server : 3333 -----> web page
+          /\                                             |
+           `--------- bridge.js server : 3334 <----------'
+</pre>
+
+Under the hood what really happens is:
+
+<pre>
+        OSC app --[TCP/UDP]--> bridge.js oscServer:3333 ; bridge.js socketio client --[WebSockets]--> website app.js
+
+        website app.js --[WebSockets]--> bridge.js socket.io server:8081 ; bridge.js oscClient --[TCP/UDP]--> OSC app:3334    
+</pre>
+
+<hr />
+
+Received from an OSC app/device at : <div id="status"></div>
+
+<hr />
+
+<!-- <script src="http://127.0.0.1:8081/socket.io/socket.io.js"></script>
+
+<script>
+   var socket = io('http://127.0.0.1:8081');
+   socket.on('connect', function() {
+        // sends to socket.io server the host/port of oscServer
+        // and oscClient
+        socket.emit('config',
+            {
+                server: {
+                    port: 3333,
+                    host: '192.168.0.14'
+                },
+                client: {
+                    port: 3334,
+                    host: '192.168.0.1'
+                }
+            }
+        );
+    });
+
+    socket.on('message', function(obj) {
+        var status = document.getElementById("status");
+        status.innerHTML = obj[0];
+        console.log(obj);
+    });
+
+    
+</script> -->
+
+
+
+<!-- <button onclick="socket.emit('message', '/foo/bar 1 2 3');">Send /foo/bar/ 1 2 3</button> -->
+
+<h1>Trance</h1>
+    <button id="accelPermsButton"  style="height:50px;" onclick="getPerm()"><h2>Get Accelerometer Permissions</h2></button>
+    <script  type="text/javascript" src="Motion.js"></script>
+    <div id="container">
+    </div>
+
+    <button id="send">Send Message</button>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/osc-js@2.4.0/lib/osc.min.js"></script>
+    <script type="text/javascript">
+      var osc = new OSC();
+      osc.open({ host: '192.168.0.18', port: 8080 }); // connect by default to ws://localhost:8080
+    
+      document.getElementById('send').addEventListener('click', () => {
+        var a = Math.random()
+        var message = new OSC.Message('/test/random', a);
+        console.log(a)
+        osc.send(message, { host: '192.168.0.18', port: 9129 });
+      });
+    </script>
+
+</body> </html>
