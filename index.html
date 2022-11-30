@@ -55,6 +55,8 @@ Received from an OSC app/device at : <div id="status"></div>
         status.innerHTML = obj[0];
         console.log(obj);
     });
+
+    
 </script>
 
 <button onclick="socket.emit('message', '/foo/bar 1 2 3');">Send /foo/bar/ 1 2 3</button>
@@ -64,5 +66,7 @@ Received from an OSC app/device at : <div id="status"></div>
     <script  type="text/javascript" src="Motion.js"></script>
     <div id="container">
     </div>
+
+
 
 </body> </html>
